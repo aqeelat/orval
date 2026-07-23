@@ -321,10 +321,8 @@ function getSchema<TSchema extends object = OpenApiComponentsObject>(
       ) as OpenApiSchemaObject | OpenApiReferenceObject | undefined)
     : undefined;
 
-  // Don't tail-recurse through an intermediate that is itself a bound alias:
-  // it is emitted as its own named, specialized type (e.g. `ObjectArray`),
-  // so callers must reference it by name. Recursing drops that name and emits
-  // the unspecialized template instead (#3746).
+  // Stop at bound aliases: they're emitted as named types, so callers must
+  // reference them by name rather than recurse through (#3746).
   if (
     isObject(schemaByRefPaths) &&
     isReference(schemaByRefPaths) &&

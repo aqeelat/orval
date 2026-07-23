@@ -406,8 +406,6 @@ describe('generateSchemasDefinition with $dynamicRef', () => {
         'type ObjectArray = GenericArray<SomeObject>',
       );
 
-      // The plain $ref hop must reference the alias by name, not recurse
-      // through to the unspecialized template.
       const foo = result.find((s) => s.name === 'Foo');
       expect(foo).toBeDefined();
       expect(foo!.model).toContain('bar?: ObjectArray');

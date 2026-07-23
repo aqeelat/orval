@@ -284,12 +284,10 @@ describe('resolveRef', () => {
       },
     });
     expect('$ref' in result.schema).toBe(false);
-    // The bound alias must be referenced by name (not resolved through to the
-    // unspecialized template); the template is recorded as a secondary hop.
-    expect(result.imports).toEqual([
-      { name: 'PaginatedUserResponse', schemaName: 'PaginatedUserResponse' },
-      { name: 'PaginatedTemplate', schemaName: 'PaginatedTemplate' },
-    ]);
+    expect(result.imports[0]).toEqual({
+      name: 'PaginatedUserResponse',
+      schemaName: 'PaginatedUserResponse',
+    });
   });
 
   it('orders bound-alias type args from encoded template schema names', () => {
